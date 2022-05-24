@@ -406,3 +406,56 @@ def draw():
     glVertex2f(-8.2, -2)
     glVertex2f(-8.2, -5)
     glEnd()
+
+    glColor3f(0.5, 0.5, 0.5)
+    glBegin(GL_POLYGON)
+    glVertex2f(-1, -5.0)
+    glVertex2f(-1, -2.0)
+    glVertex2f(-1.2, -2)
+    glVertex2f(-1.2, -5)
+    glEnd()
+
+    glColor3f(0.5, 0.5, 0.5)
+    glBegin(GL_POLYGON)
+    glVertex2f(6, -5.0)
+    glVertex2f(6, -2.0)
+    glVertex2f(6.2, -2)
+    glVertex2f(6.2, -5)
+    glEnd()
+    glColor3f(1, 0, 1)
+    glBegin(GL_POLYGON)
+    glVertex2f(6.2, -2)
+    glVertex2f(6, -2.0)
+    glVertex2f(5.8, -3)
+    glVertex2f(6.4, -3)
+    glEnd()
+
+    glBegin(GL_POLYGON)
+    glVertex2f(-1.2, -2)
+    glVertex2f(-1, -2.0)
+    glVertex2f(-0.8, -3)
+    glVertex2f(-1.4, -3)
+    glEnd()
+
+    glBegin(GL_POLYGON)
+    glVertex2f(-8.2, -2)
+    glVertex2f(-8, -2.0)
+    glVertex2f(-7.8, -3)
+    glVertex2f(-8.4, -3)
+    glEnd()
+
+
+def main():
+    init()
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        draw()
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+
+main()
