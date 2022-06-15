@@ -77,12 +77,14 @@ window2_indices, window2_buffer = ObjLoader.load_model("window2.obj")
 hotel2_indices, hotel2_buffer = ObjLoader.load_model("hotel2.obj")
 hotel3_indices, hotel3_buffer = ObjLoader.load_model("hotel3.obj")
 leg_indices, leg_buffer = ObjLoader.load_model("leg.obj")
+sun_indices, sun_buffer = ObjLoader.load_model("sun.obj")
+
 
 shader = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER), compileShader(fragment_src, GL_FRAGMENT_SHADER))
 
 # VAO and VBO
-VAO = glGenVertexArrays(12)
-VBO = glGenBuffers(12)
+VAO = glGenVertexArrays(13)
+VBO = glGenBuffers(13)
 # EBO = glGenBuffers(1)
 
 # Chibi VAO
@@ -280,14 +282,42 @@ glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, leg_buffer.itemsize * 8, ctypes.
 glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, leg_buffer.itemsize * 8, ctypes.c_void_p(20))
 glEnableVertexAttribArray(12)
 
-textures = glGenTextures(7)
-load_texture("road.jpg", textures[0])
+
+
+# Monkey VAO
+glBindVertexArray(VAO[12])
+# Monkey Vertex Buffer Object
+glBindBuffer(GL_ARRAY_BUFFER, VBO[12])
+glBufferData(GL_ARRAY_BUFFER, sun_buffer.nbytes, sun_buffer, GL_STATIC_DRAW)
+
+# monkey vertices
+glEnableVertexAttribArray(0)
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sun_buffer.itemsize * 8, ctypes.c_void_p(0))
+# monkey textures
+glEnableVertexAttribArray(1)
+glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sun_buffer.itemsize * 8, ctypes.c_void_p(12))
+# monkey normals
+glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sun_buffer.itemsize * 8, ctypes.c_void_p(20))
+glEnableVertexAttribArray(13)
+
+
+
+
+
+
+textures = glGenTextures(12)
+load_texture("road.png", textures[0])
 load_texture("floor.jpeg", textures[1])
 load_texture("solarpanel.jpg", textures[2])
 load_texture("tree.jpeg", textures[3])
 load_texture("home.jpeg", textures[4])
 load_texture("door.jpeg", textures[5])
 load_texture("window.jpeg", textures[6])
+load_texture("black.png", textures[7])
+load_texture("wall4.jpeg", textures[8])
+load_texture("wall5.jpeg", textures[9])
+load_texture("sun.jpeg", textures[10])
+load_texture("yellow.jpeg", textures[11])
 
 glUseProgram(shader)
 glClearColor(0, 0.1, 0.1, 1)
@@ -308,6 +338,7 @@ window2_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 hotel2_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 hotel3_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 leg_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
+sun_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 
 # eye, target, up
 view = pyrr.matrix44.create_look_at(pyrr.Vector3([0, 0, 8]), pyrr.Vector3([0, 0, 0]), pyrr.Vector3([0, 1, 0]))
@@ -366,7 +397,7 @@ while not glfw.window_should_close(window):
 
     model = pyrr.matrix44.multiply(rot_y, window_pos)
     glBindVertexArray(VAO[6])
-    glBindTexture(GL_TEXTURE_2D, textures[6])
+    glBindTexture(GL_TEXTURE_2D, textures[11])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(window_indices))
 
@@ -378,18 +409,18 @@ while not glfw.window_should_close(window):
 
     model = pyrr.matrix44.multiply(rot_y, window2_pos)
     glBindVertexArray(VAO[8])
-    glBindTexture(GL_TEXTURE_2D, textures[6])
+    glBindTexture(GL_TEXTURE_2D, textures[7])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(window2_indices))
 
     model = pyrr.matrix44.multiply(rot_y, hotel2_pos)
     glBindVertexArray(VAO[9])
-    glBindTexture(GL_TEXTURE_2D, textures[4])
+    glBindTexture(GL_TEXTURE_2D, textures[9])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(hotel2_indices))
 
     glBindVertexArray(VAO[10])
-    glBindTexture(GL_TEXTURE_2D, textures[4])
+    glBindTexture(GL_TEXTURE_2D, textures[8])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(hotel3_indices))
 
@@ -397,6 +428,11 @@ while not glfw.window_should_close(window):
     glBindTexture(GL_TEXTURE_2D, textures[1])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(leg_indices))
+
+    glBindVertexArray(VAO[12])
+    glBindTexture(GL_TEXTURE_2D, textures[10])
+    glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
+    glDrawArrays(GL_TRIANGLES, 0, len(sun_indices))
 
     glfw.swap_buffers(window)
 
