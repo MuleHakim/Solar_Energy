@@ -314,8 +314,8 @@ glEnable(GL_BLEND)
 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
 projection = pyrr.matrix44.create_perspective_projection_matrix(45, 1280 / 720, 0.1, 100)
-chibi_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
-monkey_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
+road_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
+floor_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 solarpanel_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 tree_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 home_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
@@ -343,14 +343,14 @@ while not glfw.window_should_close(window):
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     rot_y = pyrr.Matrix44.from_y_rotation(0.1 * glfw.get_time())
-    model = pyrr.matrix44.multiply(rot_y, chibi_pos)
+    model = pyrr.matrix44.multiply(rot_y, road_pos)
 
     glBindVertexArray(VAO[0])
     glBindTexture(GL_TEXTURE_2D, textures[0])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(road_verts))
 
-    model = pyrr.matrix44.multiply(rot_y, monkey_pos)
+    model = pyrr.matrix44.multiply(rot_y, floor_pos)
     glBindVertexArray(VAO[1])
     glBindTexture(GL_TEXTURE_2D, textures[1])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
