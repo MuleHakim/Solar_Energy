@@ -74,13 +74,13 @@ void main()
 shader_forcompile = compileProgram(compileShader(srcfor_vrtx, GL_VERTEX_SHADER), compileShader(srcfor_frag, GL_FRAGMENT_SHADER))
 
 
-VAO = glGenVertexArrays(13)
-VBO = glGenBuffers(13)
+vertexArrayObject = glGenVertexArrays(13)
+vertexBufferObject = glGenBuffers(13)
 
 
 # road
-glBindVertexArray(VAO[0])
-glBindBuffer(GL_ARRAY_BUFFER, VBO[0])
+glBindVertexArray(vertexArrayObject[0])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[0])
 glBufferData(GL_ARRAY_BUFFER, road_buff.nbytes, road_buff, GL_STATIC_DRAW)
 
 
@@ -95,9 +95,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, road_buff.itemsize * 8, ctypes.c
 glEnableVertexAttribArray(4)
 
 # floor 
-glBindVertexArray(VAO[1])
+glBindVertexArray(vertexArrayObject[1])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[1])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[1])
 glBufferData(GL_ARRAY_BUFFER, floor_buff.nbytes, floor_buff, GL_STATIC_DRAW)
 
 
@@ -111,8 +111,8 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, floor_buff.itemsize * 8, ctypes.
 glEnableVertexAttribArray(4)
 
 # solar_panel 
-glBindVertexArray(VAO[2])
-glBindBuffer(GL_ARRAY_BUFFER, VBO[2])
+glBindVertexArray(vertexArrayObject[2])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[2])
 glBufferData(GL_ARRAY_BUFFER, solarpanel_buffer.nbytes, solarpanel_buffer, GL_STATIC_DRAW)
 
 glEnableVertexAttribArray(0)
@@ -125,9 +125,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, solarpanel_buffer.itemsize * 8, 
 glEnableVertexAttribArray(4)
 
 # tree
-glBindVertexArray(VAO[3])
+glBindVertexArray(vertexArrayObject[3])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[3])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[3])
 glBufferData(GL_ARRAY_BUFFER, tree_verts.nbytes, tree_verts, GL_STATIC_DRAW)
 
 
@@ -141,9 +141,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, tree_verts.itemsize * 8, ctypes.
 glEnableVertexAttribArray(4)
 
 # home
-glBindVertexArray(VAO[4])
+glBindVertexArray(vertexArrayObject[4])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[4])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[4])
 glBufferData(GL_ARRAY_BUFFER, home_buffer.nbytes, home_buffer, GL_STATIC_DRAW)
 
 
@@ -157,9 +157,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, home_buffer.itemsize * 8, ctypes
 glEnableVertexAttribArray(5)
 
 # door
-glBindVertexArray(VAO[5])
+glBindVertexArray(vertexArrayObject[5])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[5])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[5])
 glBufferData(GL_ARRAY_BUFFER, door_buffer.nbytes, door_buffer, GL_STATIC_DRAW)
 
 
@@ -173,9 +173,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, door_buffer.itemsize * 8, ctypes
 glEnableVertexAttribArray(6)
 
 # window
-glBindVertexArray(VAO[6])
+glBindVertexArray(vertexArrayObject[6])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[6])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[6])
 glBufferData(GL_ARRAY_BUFFER, window_buffer.nbytes, window_buffer, GL_STATIC_DRAW)
 
 
@@ -189,9 +189,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, window_buffer.itemsize * 8, ctyp
 glEnableVertexAttribArray(7)
 
 # hotel
-glBindVertexArray(VAO[7])
+glBindVertexArray(vertexArrayObject[7])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[7])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[7])
 glBufferData(GL_ARRAY_BUFFER, hotel_buffer.nbytes, hotel_buffer, GL_STATIC_DRAW)
 
 
@@ -205,9 +205,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, hotel_buffer.itemsize * 8, ctype
 glEnableVertexAttribArray(8)
 
 # window2
-glBindVertexArray(VAO[8])
+glBindVertexArray(vertexArrayObject[8])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[8])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[8])
 glBufferData(GL_ARRAY_BUFFER, window2_buffer.nbytes, window2_buffer, GL_STATIC_DRAW)
 
 
@@ -221,9 +221,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, window2_buffer.itemsize * 8, cty
 glEnableVertexAttribArray(9)
 
 # hotel2
-glBindVertexArray(VAO[9])
+glBindVertexArray(vertexArrayObject[9])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[9])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[9])
 glBufferData(GL_ARRAY_BUFFER, hotel2_buffer.nbytes, hotel2_buffer, GL_STATIC_DRAW)
 
 
@@ -237,9 +237,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, hotel2_buffer.itemsize * 8, ctyp
 glEnableVertexAttribArray(10)
 
 # hotel3
-glBindVertexArray(VAO[10])
+glBindVertexArray(vertexArrayObject[10])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[10])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[10])
 glBufferData(GL_ARRAY_BUFFER, hotel3_buffer.nbytes, hotel3_buffer, GL_STATIC_DRAW)
 
 
@@ -253,9 +253,9 @@ glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, hotel3_buffer.itemsize * 8, ctyp
 glEnableVertexAttribArray(11)
 
 # solarpanel leg
-glBindVertexArray(VAO[11])
+glBindVertexArray(vertexArrayObject[11])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[11])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[11])
 glBufferData(GL_ARRAY_BUFFER, leg_buffer.nbytes, leg_buffer, GL_STATIC_DRAW)
 
 
@@ -271,9 +271,9 @@ glEnableVertexAttribArray(12)
 
 
 # sun
-glBindVertexArray(VAO[12])
+glBindVertexArray(vertexArrayObject[12])
 
-glBindBuffer(GL_ARRAY_BUFFER, VBO[12])
+glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject[12])
 glBufferData(GL_ARRAY_BUFFER, sun_buffer.nbytes, sun_buffer, GL_STATIC_DRAW)
 
 
@@ -291,19 +291,19 @@ glEnableVertexAttribArray(13)
 
 
 
-textures = glGenTextures(12)
-texture_loader("road.png", textures[0])
-texture_loader("floor.jpeg", textures[1])
-texture_loader("solarpanel.jpg", textures[2])
-texture_loader("tree.jpeg", textures[3])
-texture_loader("home.jpeg", textures[4])
-texture_loader("door.jpeg", textures[5])
-texture_loader("window.jpeg", textures[6])
-texture_loader("black.png", textures[7])
-texture_loader("wall4.jpeg", textures[8])
-texture_loader("wall5.jpeg", textures[9])
-texture_loader("sun.jpeg", textures[10])
-texture_loader("yellow.jpeg", textures[11])
+texturesList = glGenTextures(12)
+texture_loader("road.png", texturesList[0])
+texture_loader("floor.jpeg", texturesList[1])
+texture_loader("solarpanel.jpg", texturesList[2])
+texture_loader("tree.jpeg", texturesList[3])
+texture_loader("home.jpeg", texturesList[4])
+texture_loader("door.jpeg", texturesList[5])
+texture_loader("window.jpeg", texturesList[6])
+texture_loader("black.png", texturesList[7])
+texture_loader("wall4.jpeg", texturesList[8])
+texture_loader("wall5.jpeg", texturesList[9])
+texture_loader("sun.jpeg", texturesList[10])
+texture_loader("yellow.jpeg", texturesList[11])
 
 glUseProgram(shader_forcompile)
 glClearColor(0, 0.1, 0.1, 1)
@@ -343,77 +343,77 @@ while not glfw.window_should_close(window):
     rot_y = pyrr.Matrix44.from_y_rotation(0.1 * glfw.get_time())
     model = pyrr.matrix44.multiply(rot_y, road_pos)
 
-    glBindVertexArray(VAO[0])
-    glBindTexture(GL_TEXTURE_2D, textures[0])
+    glBindVertexArray(vertexArrayObject[0])
+    glBindTexture(GL_TEXTURE_2D, texturesList[0])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(road_verts))
 
     model = pyrr.matrix44.multiply(rot_y, floor_pos)
-    glBindVertexArray(VAO[1])
-    glBindTexture(GL_TEXTURE_2D, textures[1])
+    glBindVertexArray(vertexArrayObject[1])
+    glBindTexture(GL_TEXTURE_2D, texturesList[1])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(floor_verts))
 
     model = pyrr.matrix44.multiply(rot_y, solarpanel_pos)
-    glBindVertexArray(VAO[2])
-    glBindTexture(GL_TEXTURE_2D, textures[2])
+    glBindVertexArray(vertexArrayObject[2])
+    glBindTexture(GL_TEXTURE_2D, texturesList[2])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(solarpanel_verts))
 
     model = pyrr.matrix44.multiply(rot_y, tree_pos)
-    glBindVertexArray(VAO[3])
-    glBindTexture(GL_TEXTURE_2D, textures[3])
+    glBindVertexArray(vertexArrayObject[3])
+    glBindTexture(GL_TEXTURE_2D, texturesList[3])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(tree_verts))
 
     model = pyrr.matrix44.multiply(rot_y, home_pos)
-    glBindVertexArray(VAO[4])
-    glBindTexture(GL_TEXTURE_2D, textures[4])
+    glBindVertexArray(vertexArrayObject[4])
+    glBindTexture(GL_TEXTURE_2D, texturesList[4])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(home_indices))
 
     model = pyrr.matrix44.multiply(rot_y, window_pos)
-    glBindVertexArray(VAO[5])
-    glBindTexture(GL_TEXTURE_2D, textures[5])
+    glBindVertexArray(vertexArrayObject[5])
+    glBindTexture(GL_TEXTURE_2D, texturesList[5])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(window_indices))
 
     model = pyrr.matrix44.multiply(rot_y, window_pos)
-    glBindVertexArray(VAO[6])
-    glBindTexture(GL_TEXTURE_2D, textures[11])
+    glBindVertexArray(vertexArrayObject[6])
+    glBindTexture(GL_TEXTURE_2D, texturesList[11])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(window_indices))
 
     model = pyrr.matrix44.multiply(rot_y, hotel_pos)
-    glBindVertexArray(VAO[7])
-    glBindTexture(GL_TEXTURE_2D, textures[1])
+    glBindVertexArray(vertexArrayObject[7])
+    glBindTexture(GL_TEXTURE_2D, texturesList[1])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(hotel_indices))
 
     model = pyrr.matrix44.multiply(rot_y, window2_pos)
-    glBindVertexArray(VAO[8])
-    glBindTexture(GL_TEXTURE_2D, textures[7])
+    glBindVertexArray(vertexArrayObject[8])
+    glBindTexture(GL_TEXTURE_2D, texturesList[7])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(window2_indices))
 
     model = pyrr.matrix44.multiply(rot_y, hotel2_pos)
-    glBindVertexArray(VAO[9])
-    glBindTexture(GL_TEXTURE_2D, textures[9])
+    glBindVertexArray(vertexArrayObject[9])
+    glBindTexture(GL_TEXTURE_2D, texturesList[9])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(hotel2_indices))
 
-    glBindVertexArray(VAO[10])
-    glBindTexture(GL_TEXTURE_2D, textures[8])
+    glBindVertexArray(vertexArrayObject[10])
+    glBindTexture(GL_TEXTURE_2D, texturesList[8])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(hotel3_indices))
 
-    glBindVertexArray(VAO[11])
-    glBindTexture(GL_TEXTURE_2D, textures[1])
+    glBindVertexArray(vertexArrayObject[11])
+    glBindTexture(GL_TEXTURE_2D, texturesList[1])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(leg_indices))
 
-    glBindVertexArray(VAO[12])
-    glBindTexture(GL_TEXTURE_2D, textures[10])
+    glBindVertexArray(vertexArrayObject[12])
+    glBindTexture(GL_TEXTURE_2D, texturesList[10])
     glUniformMatrix4fv(model_loc, 1, GL_FALSE, model)
     glDrawArrays(GL_TRIANGLES, 0, len(sun_indices))
 
