@@ -2,9 +2,9 @@ import glfw
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
 import pyrr
-from ObjLoader import ObjLoader
+from Solar_Energy.ObjLoader1 import ObjLoader
 import pickle
-from TextureLoader import load_texture
+from Solar_Energy.texture_loader import load_texture
 
 vertex_src = """
 # version 330
