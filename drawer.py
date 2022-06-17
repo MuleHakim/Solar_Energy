@@ -2,36 +2,9 @@ import glfw
 from OpenGL.GL import *
 from OpenGL.GL.shaders import compileProgram, compileShader
 import pyrr
-from Solar_Energy.ObjLoader1 import ObjLoader
+from ObjLoader1 import Objfileexporter
 import pickle
-from Solar_Energy.texture_loader import load_texture
-
-vertex_src = """
-# version 330
-layout(location = 0) in vec3 a_position;
-layout(location = 1) in vec2 a_texture;
-layout(location = 2) in vec3 a_normal;
-uniform mat4 model;
-uniform mat4 projection;
-uniform mat4 view;
-out vec2 v_texture;
-void main()
-{
-    gl_Position = projection * view * model * vec4(a_position, 1.0);
-    v_texture = a_texture;
-}
-"""
-
-fragment_src = """
-# version 330
-in vec2 v_texture;
-out vec4 out_color;
-uniform sampler2D s_texture;
-void main()
-{
-    out_color = texture(s_texture, v_texture);
-}
-"""
+from texture_loader import texture_loader
 
 
 
@@ -58,22 +31,47 @@ glfw.set_window_size_callback(window, window_resize)
 glfw.make_context_current(window)
 
 
-road_verts, road_buff = ObjLoader.load_model("road.obj")
-floor_verts, floor_buff = ObjLoader.load_model("floor.obj")
-solarpanel_verts, solarpanel_buffer = ObjLoader.load_model("solarpanelobj.obj")
-tree_verts, tree_verts = ObjLoader.load_model("tree.obj")
-home_indices, home_buffer = ObjLoader.load_model("home.obj")
-door_indices, door_buffer = ObjLoader.load_model("door.obj")
-window_indices, window_buffer = ObjLoader.load_model("window.obj")
-hotel_indices, hotel_buffer = ObjLoader.load_model("hotel.obj")
-window2_indices, window2_buffer = ObjLoader.load_model("window2.obj")
-hotel2_indices, hotel2_buffer = ObjLoader.load_model("hotel2.obj")
-hotel3_indices, hotel3_buffer = ObjLoader.load_model("hotel3.obj")
-leg_indices, leg_buffer = ObjLoader.load_model("leg.obj")
-sun_indices, sun_buffer = ObjLoader.load_model("sun.obj")
+road_verts, road_buff = Objfileexporter.model_load("road.obj")
+floor_verts, floor_buff = Objfileexporter.model_load("floor.obj")
+solarpanel_verts, solarpanel_buffer = Objfileexporter.model_load("solarpanelobj.obj")
+tree_verts, tree_verts = Objfileexporter.model_load("tree.obj")
+home_indices, home_buffer = Objfileexporter.model_load("home.obj")
+door_indices, door_buffer = Objfileexporter.model_load("door.obj")
+window_indices, window_buffer = Objfileexporter.model_load("window.obj")
+hotel_indices, hotel_buffer = Objfileexporter.model_load("hotel.obj")
+window2_indices, window2_buffer = Objfileexporter.model_load("window2.obj")
+hotel2_indices, hotel2_buffer = Objfileexporter.model_load("hotel2.obj")
+hotel3_indices, hotel3_buffer = Objfileexporter.model_load("hotel3.obj")
+leg_indices, leg_buffer = Objfileexporter.model_load("leg.obj")
+sun_indices, sun_buffer = Objfileexporter.model_load("sun.obj")
+srcfor_vrtx = """
+# version 330
+layout(location = 0) in vec3 a_position;
+layout(location = 1) in vec2 a_texture;
+layout(location = 2) in vec3 a_normal;
+uniform mat4 model;
+uniform mat4 projection;
+uniform mat4 view;
+out vec2 v_texture;
+void main()
+{
+    gl_Position = projection * view * model * vec4(a_position, 1.0);
+    v_texture = a_texture;
+}
+"""
 
+srcfor_frag = """
+# version 330
+in vec2 v_texture;
+out vec4 out_color;
+uniform sampler2D s_texture;
+void main()
+{
+    out_color = texture(s_texture, v_texture);
+}
+"""
 
-shader = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER), compileShader(fragment_src, GL_FRAGMENT_SHADER))
+shader_forcompile = compileProgram(compileShader(srcfor_vrtx, GL_VERTEX_SHADER), compileShader(srcfor_frag, GL_FRAGMENT_SHADER))
 
 
 VAO = glGenVertexArrays(13)
@@ -294,20 +292,20 @@ glEnableVertexAttribArray(13)
 
 
 textures = glGenTextures(12)
-load_texture("road.png", textures[0])
-load_texture("floor.jpeg", textures[1])
-load_texture("solarpanel.jpg", textures[2])
-load_texture("tree.jpeg", textures[3])
-load_texture("home.jpeg", textures[4])
-load_texture("door.jpeg", textures[5])
-load_texture("window.jpeg", textures[6])
-load_texture("black.png", textures[7])
-load_texture("wall4.jpeg", textures[8])
-load_texture("wall5.jpeg", textures[9])
-load_texture("sun.jpeg", textures[10])
-load_texture("yellow.jpeg", textures[11])
+texture_loader("road.png", textures[0])
+texture_loader("floor.jpeg", textures[1])
+texture_loader("solarpanel.jpg", textures[2])
+texture_loader("tree.jpeg", textures[3])
+texture_loader("home.jpeg", textures[4])
+texture_loader("door.jpeg", textures[5])
+texture_loader("window.jpeg", textures[6])
+texture_loader("black.png", textures[7])
+texture_loader("wall4.jpeg", textures[8])
+texture_loader("wall5.jpeg", textures[9])
+texture_loader("sun.jpeg", textures[10])
+texture_loader("yellow.jpeg", textures[11])
 
-glUseProgram(shader)
+glUseProgram(shader_forcompile)
 glClearColor(0, 0.1, 0.1, 1)
 glEnable(GL_DEPTH_TEST)
 glEnable(GL_BLEND)
@@ -330,9 +328,9 @@ sun_pos = pyrr.matrix44.create_from_translation(pyrr.Vector3([0, -5, -10]))
 
 view = pyrr.matrix44.create_look_at(pyrr.Vector3([0, 0, 8]), pyrr.Vector3([0, 0, 0]), pyrr.Vector3([0, 1, 0]))
 
-model_loc = glGetUniformLocation(shader, "model")
-proj_loc = glGetUniformLocation(shader, "projection")
-view_loc = glGetUniformLocation(shader, "view")
+model_loc = glGetUniformLocation(shader_forcompile, "model")
+proj_loc = glGetUniformLocation(shader_forcompile, "projection")
+view_loc = glGetUniformLocation(shader_forcompile, "view")
 
 glUniformMatrix4fv(proj_loc, 1, GL_FALSE, projection)
 glUniformMatrix4fv(view_loc, 1, GL_FALSE, view)
